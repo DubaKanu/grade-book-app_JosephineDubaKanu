@@ -36,4 +36,3 @@ class GradeBook:
         if student_email in self.student_list:
             student = self.student_list[student_email]
             return f"Transcript for {student.names}\nGPA: {student.GPA}\nCourses: {student.courses_registered}"
-
