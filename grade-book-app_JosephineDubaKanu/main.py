@@ -1,12 +1,10 @@
 from gradebook import GradeBook
-from student import Student
-from course import Course
 
 def main():
     gradebook = GradeBook()
 
     while True:
-        print("Choose an action:")
+        print("Please select an action:")
         print("1. Add Student")
         print("2. Add Course")
         print("3. Register Student for Course")
@@ -16,25 +14,24 @@ def main():
         print("7. Generate Transcript")
         print("8. Exit")
 
-        choice = input()
+        choice = input("Enter your choice: ")
 
         if choice == '1':
             email = input("Enter student email: ")
             names = input("Enter student names: ")
-            student = Student(email, names)
-            gradebook.add_student(student)
+            gradebook.add_student(email, names)
 
         elif choice == '2':
             name = input("Enter course name: ")
             trimester = input("Enter course trimester: ")
             credits = int(input("Enter course credits: "))
-            course = Course(name, trimester, credits)
-            gradebook.add_course(course)
+            gradebook.add_course(name, trimester, credits)
 
         elif choice == '3':
             student_email = input("Enter student email: ")
             course_name = input("Enter course name: ")
-            gradebook.register_student_for_course(student_email, course_name)
+            grade = float(input("Enter grade for the course: "))
+            gradebook.register_student_for_course(student_email, course_name, grade)
 
         elif choice == '4':
             student_email = input("Enter student email: ")
@@ -42,14 +39,17 @@ def main():
 
         elif choice == '5':
             ranking = gradebook.calculate_ranking()
+            print("Student Ranking:")
             for student in ranking:
-                print(f"{student.names}: {student.GPA}")
+                print(f"{student.names}: GPA {student.GPA}")
 
         elif choice == '6':
-            grade = float(input("Enter grade to search: "))
-            students = gradebook.search_by_grade(grade)
+            min_grade = float(input("Enter minimum grade: "))
+            max_grade = float(input("Enter maximum grade: "))
+            students = gradebook.search_by_grade(min_grade, max_grade)
+            print("Search results:")
             for student in students:
-                print(student.names)
+                print(f">> {student.names} (GPA: {student.GPA})")
 
         elif choice == '7':
             student_email = input("Enter student email: ")
